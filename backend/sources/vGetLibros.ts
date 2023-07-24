@@ -13,3 +13,17 @@ export class validateGetLibros{
         this.Autor = Autor;
     }
 }
+
+
+export class validateGetLibrosCategoria{
+    @Expose({ name: "Categoria" })
+    @IsDefined({ message: ()=>{ throw { status: 400, message: 'El parametro Categoria es obligatorio'}}})
+    @MaxLength(100, { message: ()=>{ throw { status: 400, message: 'El parametro Categoria debe tener como máximo 100 caracteres'}}})
+    @Matches(/^[\p{L}\s]+$/u, {  message: ()=>{ throw { status: 400, message: 'El parametro Categoria debe ser una cadena de texto sin números ni caracteres especiales'}}})
+    @IsNotEmpty({ message: ()=>{ throw { status: 400, message: 'El parametro Categoria no puede estar vacio'}}})
+    Categoria: string;
+
+    constructor(Categoria : string){
+        this.Categoria = Categoria;
+    }
+}

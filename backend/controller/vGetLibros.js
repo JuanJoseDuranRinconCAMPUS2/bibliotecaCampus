@@ -22,3 +22,16 @@ __decorate([
     IsNotEmpty({ message: () => { throw { status: 400, message: 'El parametro Autor no puede estar vacio' }; } }),
     __metadata("design:type", String)
 ], validateGetLibros.prototype, "Autor", void 0);
+export class validateGetLibrosCategoria {
+    constructor(Categoria) {
+        this.Categoria = Categoria;
+    }
+}
+__decorate([
+    Expose({ name: "Categoria" }),
+    IsDefined({ message: () => { throw { status: 400, message: 'El parametro Categoria es obligatorio' }; } }),
+    MaxLength(100, { message: () => { throw { status: 400, message: 'El parametro Categoria debe tener como máximo 100 caracteres' }; } }),
+    Matches(/^[\p{L}\s]+$/u, { message: () => { throw { status: 400, message: 'El parametro Categoria debe ser una cadena de texto sin números ni caracteres especiales' }; } }),
+    IsNotEmpty({ message: () => { throw { status: 400, message: 'El parametro Categoria no puede estar vacio' }; } }),
+    __metadata("design:type", String)
+], validateGetLibrosCategoria.prototype, "Categoria", void 0);
