@@ -9,6 +9,7 @@ import GLibros from './routes/GetLibros.js';
 import GPrestamos from './routes/GetPrestamos.js';
 import GReservas from './routes/GetReservas.js';
 import GUsuarios from './routes/GetUsuarios.js';
+import CUsuarios from './routes/CrudUsuario.js';
 console.clear()
 dotenv.config();
 
@@ -24,6 +25,8 @@ BibliotecaApi.use("/Libros", GLibros);
 BibliotecaApi.use("/Prestamos", GPrestamos);
 BibliotecaApi.use("/Reservas", GReservas);
 BibliotecaApi.use("/Usuarios", GUsuarios);
+BibliotecaApi.use("/CUsuarios", CUsuarios);
+
 // ════════ ⋆★⋆ ════════
 
 const config = JSON.parse(process.env.MY_CONFIG);
