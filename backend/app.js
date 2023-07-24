@@ -4,6 +4,7 @@ import { SignJWT, jwtVerify } from 'jose';
 import GAutores from './routes/GetAutores.js';
 import GCategoriasD from './routes/GetCategoriasD.js';
 import GEditorialesD from './routes/GetEditorialesD.js';
+import GEstadosL from './routes/GetEstadosL.js';
 console.clear()
 dotenv.config();
 
@@ -14,6 +15,7 @@ BibliotecaApi.use(express.json());
 BibliotecaApi.use("/AutoresC", GAutores);
 BibliotecaApi.use("/CategoriasD", GCategoriasD);
 BibliotecaApi.use("/EditorialesD", GEditorialesD);
+BibliotecaApi.use("/EstadosL", GEstadosL);
 // ════════ ⋆★⋆ ════════
 
 const config = JSON.parse(process.env.MY_CONFIG);
