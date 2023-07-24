@@ -64,13 +64,13 @@ GLibros.get('/GetLibrosPrestamoFecha', (req,res)=>{
     );
 })
 
-GLibros.get('/GetLibrosAutorEsp', proxyGLibrosAutor, (req,res)=>{
-    const {Autor} = req.body;
-    console.log(Autor);
+GLibros.get('/GetLibrosPrestadosUsu', (req,res)=>{
+    const {Usuario} = req.body;
     con.query(
-        /*SQL*/`SELECT l.id_libro, l.titulo, a.nombre, a.apellido FROM libro l
-        INNER JOIN autor a ON l.id_autor = a.id_autor
-        WHERE a.nombre = '${Autor}'`,
+        /*SQL*/`SELECT l.id_libro, l.titulo, pt.estado FROM libro l
+        INNER JOIN prestamo pt ON l.id_libro = pt.id_libro
+        INNER JOIN usuario u ON u.id_usuario = pt.id_usuario
+        WHERE pt.estado = 'Prestado' AND u.nombre = '${Usuario}'`,
         (err,data,fil)=>{
             if (err) {
                 const errorMessage = `No hay data disponible en esta tabla`;
@@ -109,6 +109,24 @@ GLibros.get('/GetLibrosPaginas', (req,res)=>{
             if (data.length == 0) {
                 const errorMessage = `No hay data disponible en esta tabla`;
                 res.status(500).send(errorMessage);
+            } else {
+                data = JSON.stringify(data);
+                res.send(JSON.parse(data));
+            }
+        }
+    );
+})
+
+GLibros.get('/GetLibrosPrestadosEsp', proxyGLibrosAutor, (req,res)=>{
+    const {Usuario} = req.body;
+    con.query(
+        /*SQL*/`SELECT l.id_libro, l.titulo, a.nombre, a.apellido FROM libro l
+        INNER JOIN autor a ON l.id_autor = a.id_autor
+        WHERE a.nombre = '${Usuario}'`,
+        (err,data,fil)=>{
+            if (err) {
+                const errorMessage = `No hay data disponible en esta tabla`;
+                res.status(500).send(err);
             } else {
                 data = JSON.stringify(data);
                 res.send(JSON.parse(data));
