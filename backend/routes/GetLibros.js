@@ -101,4 +101,20 @@ GLibros.get('/GetLibrosCategoriaEsp', proxyGLibrosCategoria, (req,res)=>{
     );
 })
 
+GLibros.get('/GetLibrosPaginas', (req,res)=>{
+    con.query(
+        /*SQL*/`SELECT l.id_libro, l.titulo, a.nombre AS NombreAutor, a.apellido AS ApellidoAutor, l.num_paginas FROM libro l
+        INNER JOIN autor a ON l.id_autor = a.id_autor WHERE num_paginas > 500`,
+        (err,data,fil)=>{
+            if (data.length == 0) {
+                const errorMessage = `No hay data disponible en esta tabla`;
+                res.status(500).send(errorMessage);
+            } else {
+                data = JSON.stringify(data);
+                res.send(JSON.parse(data));
+            }
+        }
+    );
+})
+
 export default GLibros;
