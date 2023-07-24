@@ -45,4 +45,21 @@ GLibros.get('/GetLibrosPrestamo', (req,res)=>{
         }
     );
 })
+
+GLibros.get('/GetLibrosPrestamoFecha', (req,res)=>{
+    con.query(
+        /*SQL*/`SELECT l.id_libro, l.titulo, pt.fecha_devolucion, pt.estado FROM libro l
+        INNER JOIN prestamo pt ON l.id_libro = pt.id_libro
+        WHERE pt.estado = 'Prestado'`,
+        (err,data,fil)=>{
+            if (data.length == 0) {
+                const errorMessage = `No hay data disponible en esta tabla`;
+                res.status(500).send(errorMessage);
+            } else {
+                data = JSON.stringify(data);
+                res.send(JSON.parse(data));
+            }
+        }
+    );
+})
 export default GLibros;
