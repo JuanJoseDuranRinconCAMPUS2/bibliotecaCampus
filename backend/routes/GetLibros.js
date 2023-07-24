@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import mysql from 'mysql2';
 import {Router} from 'express';
+import proxyGLibrosAutor from '../middleware/proxyGLibros.js';
 const GLibros = Router();
 
 dotenv.config();
@@ -62,4 +63,24 @@ GLibros.get('/GetLibrosPrestamoFecha', (req,res)=>{
         }
     );
 })
+
+GLibros.get('/GetLibrosAutorEsp', proxyGLibrosAutor, (req,res)=>{
+    const {Autor} = req.body;
+    console.log(Autor);
+    con.query(
+        /*SQL*/`SELECT l.id_libro, l.titulo, a.nombre, a.apellido FROM libro l
+        INNER JOIN autor a ON l.id_autor = a.id_autor
+        WHERE a.nombre = '${Autor}'`,
+        (err,data,fil)=>{
+            if (err) {
+                const errorMessage = `No hay data disponible en esta tabla`;
+                res.status(500).send(err);
+            } else {
+                data = JSON.stringify(data);
+                res.send(JSON.parse(data));
+            }
+        }
+    );
+})
+
 export default GLibros;
