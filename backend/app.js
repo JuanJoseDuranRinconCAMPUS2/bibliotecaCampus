@@ -5,6 +5,7 @@ import GAutores from './routes/GetAutores.js';
 import GCategoriasD from './routes/GetCategoriasD.js';
 import GEditorialesD from './routes/GetEditorialesD.js';
 import GEstadosL from './routes/GetEstadosL.js';
+import GLibros from './routes/GetLibros.js';
 console.clear()
 dotenv.config();
 
@@ -16,6 +17,7 @@ BibliotecaApi.use("/AutoresC", GAutores);
 BibliotecaApi.use("/CategoriasD", GCategoriasD);
 BibliotecaApi.use("/EditorialesD", GEditorialesD);
 BibliotecaApi.use("/EstadosL", GEstadosL);
+BibliotecaApi.use("/Libros", GLibros);
 // ════════ ⋆★⋆ ════════
 
 const config = JSON.parse(process.env.MY_CONFIG);
